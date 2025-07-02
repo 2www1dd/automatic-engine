@@ -3,7 +3,7 @@ const app = express();
 const bodyParser = require('body-parser');
 
 // Dein Verification Token
-const verificationToken = 'your-secret-token-1234abcd';
+const verificationToken = 'adsfakedjdjfsf1234abcdeuqegwu6e821he';
 
 // Middleware zum Parsen des JSON-Body
 app.use(bodyParser.json());
