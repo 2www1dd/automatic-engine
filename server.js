@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 app.use(express.json());
 
-const VERIFICATION_TOKEN = 'your-secret-token-1234abcd'; // den gleichen Token wie beim eBay API-Aufruf
+const VERIFICATION_TOKEN = 'adsfakedjdjfsf1234abcdeuqegwu6e821he'; // den gleichen Token wie beim eBay API-Aufruf
 
 app.post('/webhook', (req, res) => {
   const body = req.body;
