@@ -3,7 +3,7 @@ const app = express();
 app.use(express.json());
 
 // Dein Verification Token von eBay
-const verificationToken = 'your-secret-token';
+const verificationToken = 'adsfakedjdjfsf1234abcdeuqegwu6e821he';
 
 app.post('/webhook', (req, res) => {
   // Überprüfen, ob der Token in den Headern der Anfrage vorhanden ist
