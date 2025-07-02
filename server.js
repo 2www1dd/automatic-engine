@@ -1,34 +1,26 @@
 const express = require('express');
 const app = express();
-const bodyParser = require('body-parser');
+app.use(express.json());
 
-// Dein Verification Token
-const verificationToken = 'adsfakedjdjfsf1234abcdeuqegwu6e821he';
+const VERIFICATION_TOKEN = 'your-secret-token-1234abcd'; // den gleichen Token wie beim eBay API-Aufruf
 
-// Middleware zum Parsen des JSON-Body
-app.use(bodyParser.json());
-
-// Webhook-Route
 app.post('/webhook', (req, res) => {
-  const tokenFromHeader = req.headers['x-ebay-notification-token'];
+  const body = req.body;
 
-  // Überprüfen, ob der Token stimmt
-  if (tokenFromHeader !== verificationToken) {
-    console.log('❌ Unautorisierte Anfrage!');
-    return res.status(401).send('Unauthorized');
+  // Bei der Registrierung schickt eBay ein Objekt mit "challenge"
+  if (body.challenge && body.verificationToken === VERIFICATION_TOKEN) {
+    console.log('🔐 Validierungsanfrage empfangen');
+
+    // eBay erwartet, dass du "challenge" einfach zurückgibst
+    res.status(200).send(body.challenge);
+  } else {
+    // Optional: Anfragen mit echten Daten nach Registrierung
+    console.log('📩 Webhook-Daten:', body);
+    res.status(200).send('OK');
   }
-
-  // Wenn der Token übereinstimmt, verarbeite die Benachrichtigung
-  console.log("🔔 Webhook erhalten:", req.body);
-  res.status(200).send('Webhook OK');
 });
 
-// Standard-Route
-app.get('/', (req, res) => {
-  res.send('Webhook-Server läuft!');
-});
-
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`🚀 Server läuft auf Port ${PORT}`);
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+  console.log(`🚀 Server läuft auf Port ${port}`);
 });
